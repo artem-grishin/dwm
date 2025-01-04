@@ -1,14 +1,10 @@
 --- dwm.c
 +++ dwm.c
-@@ -1919,7 +1941,10 @@ updategeom(void)
- 					m->clients = c->next;
- 					detachstack(c);
- 					c->mon = mons;
--					attach(c);
-+					if( attachbelow )
-+						attachBelow(c);
-+					else
-+						attach(c);
- 					attachstack(c);
- 				}
- 				if (m == selmon)
+@@ -226,6 +226,7 @@ static void updatetitle(Client *c);
+ static void updatewindowtype(Client *c);
+ static void updatewmhints(Client *c);
+ static void view(const Arg *arg);
++static void cycleview(const Arg *arg);
+ static Client *wintoclient(Window w);
+ static Monitor *wintomon(Window w);
+ static int xerror(Display *dpy, XErrorEvent *ee);

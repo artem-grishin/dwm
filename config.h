@@ -1,6 +1,10 @@
 /* See LICENSE file for copyright and license details. */
 #include <X11/XF86keysym.h>
 
+// location of the SESSION_FILE
+#define SESSION_FILE "~/.config/suckless/dwm/tmp/dwm-session"
+
+
 // pamixer sound commands
 static const char *volupcmd[]   = { "pamixer", "--increase", "5", NULL };
 static const char *voldowncmd[] = { "pamixer", "--decrease", "5", NULL };
@@ -71,6 +75,7 @@ static const Layout layouts[] = {
 	{ "[M]",      monocle },
 	{ "|M|",      centeredmaster },
 	{ ">M>",      centeredfloatingmaster },
+ 	{ NULL,       NULL },	
 };
 
 /* key definitions */
@@ -114,7 +119,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[3]} },
-	{ MODKEY,                       XK_o,      septlayout,      {.v = &layouts[4]} },
+	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -123,6 +128,10 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+ 	{ MODKEY|ControlMask,		XK_comma,  cyclelayout,    {.i = -1 } },
+	{ MODKEY|ControlMask,           XK_period, cyclelayout,    {.i = +1 } },
+	{ MODKEY,                       XK_Right,     cycleview,      { .i = +1 } },
+	{ MODKEY,                       XK_Left,     cycleview,      { .i = -1 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
